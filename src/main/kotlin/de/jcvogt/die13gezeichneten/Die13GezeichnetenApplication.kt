@@ -299,7 +299,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
     }
 
     @GetMapping("/gildenrat")
-    fun gildenrat(model: Model): String {
+    fun question(model: Model): String {
         model
                 .addAttribute("questionNumber", resultHolder.step + 1)
                 .addAttribute("step", steps[resultHolder.step])
