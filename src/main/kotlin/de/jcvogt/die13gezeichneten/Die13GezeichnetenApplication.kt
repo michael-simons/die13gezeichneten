@@ -27,7 +27,7 @@ data class Result(
         val ton: Int = 0
 )
 
-class Step(val question: String, val options: Array<String>, val evaluate: (Int, Result) -> Result) {
+class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result) {
 }
 
 @Component
@@ -311,7 +311,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
         if (resultHolder.step + 1 == steps.size) {
             url = "/result"
         } else {
-            resultHolder.update(answer, steps[resultHolder.step].evaluate)
+            resultHolder.update(answer, steps[resultHolder.step].evaluator)
             url = "/gildenrat"
         }
         return "redirect:" + url
