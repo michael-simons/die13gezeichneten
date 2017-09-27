@@ -25,7 +25,11 @@ data class Result(
         val eisen: Int = 0,
         val gewoben: Int = 0,
         val ton: Int = 0
-)
+) {
+    fun sign() = Result::class.memberProperties
+            .associate { it -> Pair(it.name, it.get(this) as Int) }
+            .maxBy { it -> it.value }?.key
+}
 
 class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result) {
 }
@@ -42,8 +46,6 @@ class ResultHolder {
     }
 
     fun assess(): String {
-        val values: Map<String, Int>
-                = Result::class.memberProperties.associate { it -> Pair(it.name, it.get(result) as Int) }
         return mapOf(
                 "wort" to "…Wortzeichen! Schau mal bei der Gilde der Dichter, Sänger, Schriftsteller, Buchdrucker vorbei!",
                 "verborgen" to "…Verborgene Zeichen! Jemandem wie dir steht in Sygna keine Gilde offen! Pass auf deinen Lebenswandel auf, sonst landest du am Ende noch beim Verborgenen Hof!",
@@ -58,7 +60,7 @@ class ResultHolder {
                 "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
                 "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
                 "ton" to "... Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
-        ).get(values.maxBy { it -> it.value }?.key)!!
+        ).get(result.sign())!!
     }
 
     fun reset(): Unit {
