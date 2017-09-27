@@ -40,9 +40,12 @@ class ResultHolder {
     var result: Result = Result()
     var step: Int = 0
 
-    fun update(answer: Int, evaluate: (Int, Result) -> Result) {
-        result = evaluate(answer, result)
-        step += 1
+    fun evaluate(answer: Int, steps: Array<Step>): Boolean {
+        if(step < steps.size) {
+            result = steps[step].evaluator(answer, result)
+            step += 1
+        }
+        return step >= steps.size
     }
 
     fun assess(): String {
@@ -304,16 +307,8 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
     }
 
     @PostMapping("/answer")
-    fun answer(@RequestParam answer: Int): String {
-        var url: String
-        if (resultHolder.step + 1 == steps.size) {
-            url = "/result"
-        } else {
-            resultHolder.update(answer, steps[resultHolder.step].evaluator)
-            url = "/gildenrat"
-        }
-        return "redirect:" + url
-    }
+    fun answer(@RequestParam(required = false) answer: Int?) =
+            if(answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
 
     @GetMapping("/result")
     fun result(model: Model): String {
