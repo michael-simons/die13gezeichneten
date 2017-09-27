@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale.language}"
+>
 <head>
     <meta charset="utf-8"/>
     <title>Die Dreizehn Gezeichneten</title>
@@ -11,6 +14,6 @@
     Welche Gilde passt zu dir?<br/>
     Trete vor den Gildenrat, stelle dich ihren Fragen und finde es nun heraus!
 </p>
-<p><a href="/gildenrat" th:href="@{/gildenrat}">Zum Gildenrat</a></p>
+<p><a href="gildenrat.html" th:href="@{/gildenrat}">Zum Gildenrat</a></p>
 </body>
 </html>

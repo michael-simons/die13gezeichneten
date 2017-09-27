@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale.language}"
+>
 <head>
     <meta charset="utf-8" />
     <title>Die Dreizehn Gezeichneten</title>
 </head>
 <body>
 <h1>Frage <span th:text="${questionNumber}">1</span>: <span th:text="${step.question}">Wie geht es Dir heute?</span></h1>
-<form method="post" action="/answer" th:action="@{/answer}">
+<form method="post" action="#" th:action="@{/answer}">
     <div th:each="option, stat : ${step.options}" th:remove="tag">
         <input th:id="${'answer' + stat.index}" type="radio" name="answer" th:value="${stat.index + 1}" />&#160;
         <label th:for="${'answer' + stat.index}" th:text="${option}">Irgendeine Antwort</label>
@@ -15,7 +18,7 @@
     <input type="submit" value="Weiter" />
 </form>
 <hr />
-<form method="post" action="/reset" th:action="@{/reset}">
+<form method="post" action="#" th:action="@{/reset}">
     <input type="submit" value="Von vorne anfangen" />
 </form>
 </body>
