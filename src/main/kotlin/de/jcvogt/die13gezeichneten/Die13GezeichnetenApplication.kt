@@ -61,7 +61,7 @@ class ResultHolder {
         ).get(values.maxBy { it -> it.value }?.key)!!
     }
 
-    fun reset() {
+    fun reset(): Unit {
         result = Result()
         step = 0
     }
