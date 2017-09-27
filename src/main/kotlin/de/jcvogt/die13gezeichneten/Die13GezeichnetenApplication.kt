@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.context.annotation.SessionScope
+import org.springframework.web.servlet.ModelAndView
 import kotlin.reflect.full.memberProperties
 
 data class Result(
@@ -294,27 +295,21 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
 
     @GetMapping("/")
     fun index(): String {
-        reset()
+        resultHolder.reset()
         return "index"
     }
 
     @GetMapping("/gildenrat")
-    fun question(model: Model): String {
-        model
-                .addAttribute("questionNumber", resultHolder.step + 1)
-                .addAttribute("step", steps[resultHolder.step])
-        return "question"
-    }
+    fun question() = ModelAndView("question", mapOf(
+            "questionNumber" to resultHolder.step + 1,
+            "step" to steps[resultHolder.step]))
 
     @PostMapping("/answer")
     fun answer(@RequestParam(required = false) answer: Int?) =
             if(answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
 
     @GetMapping("/result")
-    fun result(model: Model): String {
-        model.addAttribute("result", resultHolder.assess())
-        return "result"
-    }
+    fun result() = ModelAndView("result", mapOf("result" to resultHolder.assess()))
 
     @PostMapping("/reset")
     fun reset(): String {
