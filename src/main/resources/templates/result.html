@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      th:lang="${#locale.language}"
->
-<head>
-    <meta charset="utf-8" />
-    <title>Die Dreizehn Gezeichneten</title>
-</head>
-<body>
-<h1>Der Gildenrat hat deine Antworten gehört und empfiehlt dir:</h1>
-<p th:text="${result}">Lern was anständiges.</p>
-<hr />
-<p>
-    Mehr über die 13 Gezeichneten findest du im
-    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">Roman</a>,
-    auf dieser <a href="https://sites.google.com/view/scherbenland/die-13-gezeichneten">Webseite zur Welt</a>
-    und auf der <a href="http://www.jcvogt.de">Homepage der Vögte</a>.
-</p>
-<hr />
-<a href="index.html" th:href="@{/}">Zum Anfang</a>
-<br /><br />
-<img src="/CoverFinal.jpg" width="206" height="325" />
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Die Dreizehn Gezeichneten</title>
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+        <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Die 13 Gezeichneten</h1>
+                <p class="lead">Willkommen in Sygna, Stadt der 13 Zeichen!</p>
+            </div>
+            <h3>Der Gildenrat hat deine Antworten gehört und empfiehlt dir:</h3>
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">
+                        <img src="/CoverFinal.jpg" th:src="@{/CoverFinal.jpg}" class="img-thumbnail img-responsive" />
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <p>
+                    <mark th:text="${result}">Lern was anständiges.</mark>
+                    <a href="index.html" th:href="@{/}">Zurück zum Anfang</a>.</p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Mehr über die 13 Gezeichneten findest du im 
+                    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">Roman</a>, auf dieser 
+                    <a href="https://sites.google.com/view/scherbenland/die-13-gezeichneten">Webseite zur Welt</a>und auf der 
+                    <a href="http://www.jcvogt.de">Homepage der Vögte</a>.</p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
