@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -33,14 +32,30 @@ data class Result(
             .maxBy { it -> it.value }?.key
 }
 
-class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result) {
-}
+class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result)
 
 @Component
 @SessionScope
 class ResultHolder {
-    var result: Result = Result()
-    var step: Int = 0
+    var result = Result()
+    var step = 0
+    val map by lazy {
+      mapOf(
+          "wort" to "…Wortzeichen! Schau mal bei der Gilde der Dichter, Sänger, Schriftsteller, Buchdrucker vorbei!",
+          "verborgen" to "…Verborgene Zeichen! Jemandem wie dir steht in Sygna keine Gilde offen! Pass auf deinen Lebenswandel auf, sonst landest du am Ende noch beim Verborgenen Hof!",
+          "naehr" to "…Nährende Zeichen! Die Bäcker und Müller nehmen dich sicher gern auf! Oder aber die Heiler. Aber wir müssen dich vorwarnen: Letztere sind etwas umstritten!",
+          "alchim" to "…Alchimistische Zeichen! Die Gilde der Alchimisten und Sterndeuter oder die Gilde der Heiler nehmen dich sicher gerne auf!",
+          "blut" to "…Blutzeichen! Ein Schwertkämpfer! Die Goldene Gilde wäre etwas für dich. Oder du gehst zur Konkurrenz, den Stählernen Fechter, wenn dir ein Sitz im Rat nicht so wichtig ist.",
+          "stein" to "…Steinerne Zeichen! Die Zunft der Steinmetze erwartet dich!",
+          "gold" to "…Goldene Zeichen! Hier steht ein baldiger Schmuckschmiedegeselle vor uns!",
+          "glas" to "…Gläserne Zeichen! Die Zunft der Glasbläser sucht immer gute Leute!",
+          "holz" to "…Hölzerne Zeichen! Bewirb dich bei der erwürdigen Zunft der Schreiner und Zimmerleute!",
+          "rausch" to "…Rausch! Die Gilde der Kurtisanen ist Vergangenheit, aber bei den Braumeistern kannst du es auch heute noch zu etwas bringen!",
+          "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
+          "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
+          "ton" to "…Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
+      )
+    }
 
     fun evaluate(answer: Int, steps: Array<Step>): Boolean {
         if(!isDone(steps)) {
@@ -52,25 +67,9 @@ class ResultHolder {
 
     fun isDone(steps: Array<Step>) = step >= steps.size
 
-    fun assess(): String {
-        return mapOf(
-                "wort" to "…Wortzeichen! Schau mal bei der Gilde der Dichter, Sänger, Schriftsteller, Buchdrucker vorbei!",
-                "verborgen" to "…Verborgene Zeichen! Jemandem wie dir steht in Sygna keine Gilde offen! Pass auf deinen Lebenswandel auf, sonst landest du am Ende noch beim Verborgenen Hof!",
-                "naehr" to "…Nährende Zeichen! Die Bäcker und Müller nehmen dich sicher gern auf! Oder aber die Heiler. Aber wir müssen dich vorwarnen: Letztere sind etwas umstritten!",
-                "alchim" to "…Alchimistische Zeichen! Die Gilde der Alchimisten und Sterndeuter oder die Gilde der Heiler nehmen dich sicher gerne auf!",
-                "blut" to "…Blutzeichen! Ein Schwertkämpfer! Die Goldene Gilde wäre etwas für dich. Oder du gehst zur Konkurrenz, den Stählernen Fechter, wenn dir ein Sitz im Rat nicht so wichtig ist.",
-                "stein" to "…Steinerne Zeichen! Die Zunft der Steinmetze erwartet dich!",
-                "gold" to "…Goldene Zeichen! Hier steht ein baldiger Schmuckschmiedegeselle vor uns!",
-                "glas" to "…Gläserne Zeichen! Die Zunft der Glasbläser sucht immer gute Leute!",
-                "holz" to "…Hölzerne Zeichen! Bewirb dich bei der erwürdigen Zunft der Schreiner und Zimmerleute!",
-                "rausch" to "…Rausch! Die Gilde der Kurtisanen ist Vergangenheit, aber bei den Braumeistern kannst du es auch heute noch zu etwas bringen!",
-                "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
-                "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
-                "ton" to "…Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
-        ).get(result.sign())!!
-    }
+    fun assess() = map.get(result.sign())!!
 
-    fun reset(): Unit {
+    fun reset() {
         result = Result()
         step = 0
     }
@@ -297,10 +296,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
     )
 
     @GetMapping("/")
-    fun index(): String {
-        resultHolder.reset()
-        return "index"
-    }
+    fun index() = resultHolder.reset().let { "index" }
 
     @GetMapping("/gildenrat")
     fun question() = ModelAndView("question", mapOf(
@@ -309,18 +305,15 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
 
     @PostMapping("/answer")
     fun answer(@RequestParam(required = false) answer: Int?) =
-            if(answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
+            if (answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
 
     @GetMapping("/result")
     fun result() =
-            if(resultHolder.isDone(steps)) ModelAndView("result", mapOf("result" to resultHolder.assess()))
+            if (resultHolder.isDone(steps)) ModelAndView("result", mapOf("result" to resultHolder.assess()))
             else RedirectView("/gildenrat")
 
     @PostMapping("/reset")
-    fun reset(): String {
-        resultHolder.reset()
-        return "redirect:/gildenrat"
-    }
+    fun reset() = resultHolder.reset().let { "redirect:/gildenrat" }
 }
 
 fun main(args: Array<String>) {
