@@ -50,7 +50,7 @@ class ResultHolder {
                     "glas" to "…Gläserne Zeichen! Die Zunft der Glasbläser sucht immer gute Leute!",
                     "holz" to "…Hölzerne Zeichen! Bewirb dich bei der erwürdigen Zunft der Schreiner und Zimmerleute!",
                     "rausch" to "…Rausch! Die Gilde der Kurtisanen ist Vergangenheit, aber bei den Braumeistern kannst du es auch heute noch zu etwas bringen!",
-                    "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
+                    "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischmacher und Glockengießer zum anderen werden sich um dich reißen!",
                     "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
                     "ton" to "…Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
             )
