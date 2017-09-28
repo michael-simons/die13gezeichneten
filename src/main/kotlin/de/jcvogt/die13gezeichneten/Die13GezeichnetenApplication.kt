@@ -86,7 +86,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Dem Kopf",
                             "Am liebsten gar nicht"
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(
                                     naehr = r.naehr + 1,
@@ -115,7 +115,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Sport",
                             "Wenn ich dir das verraten würde, müsste ich dich töten."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(wort = r.wort + 1)
                             2 -> r.copy(naehr = r.naehr + 1)
@@ -135,7 +135,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Nähen!",
                             "Ein Fechtseminar"
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(eisen = r.eisen + 1)
                             2 -> r.copy(ton = r.ton + 1)
@@ -157,7 +157,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Einen guten Whiskey",
                             "Ich bin ein Bastler, ich baue immer an meinem Zuhause herum."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(eisen = r.eisen + 1)
                             2 -> r.copy(glas = r.glas + 1)
@@ -177,7 +177,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "In einer Blockhütte",
                             "Ich nehm’s wie’s kommt, notfalls penn ich im Auto."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(gewoben = r.gewoben + 1)
                             2 -> r.copy(stein = r.stein + 1)
@@ -195,7 +195,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Ich braue einen Liebeszauber.",
                             "Ich möchte Blei zu Gold machen."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(alchim = r.alchim + 1, blut = r.blut + 1)
                             2 -> r.copy(naehr = r.naehr + 1)
@@ -212,7 +212,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Das Schwert",
                             "Das kannst du beides vergessen, im Notfall hilft nur Verschlagenheit."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(wort = r.wort + 1)
                             2 -> r.copy(blut = r.blut + 1, eisen = r.eisen + 1)
@@ -229,7 +229,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Sie haben meinen Laptop geklaut!",
                             "Sie haben meine Fensterscheiben eingeschlagen!"
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(naehr = r.naehr + 1)
                             2 -> r.copy(ton = r.ton + 1)
@@ -248,7 +248,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Stattdessen kaufe ich einfach zu Silvester mehr Feuerwerk.",
                             "Ich stelle einfach einen Haufen Kerzenleuchter auf."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(gold = r.gold + 1, glas = r.glas + 1)
                             2 -> r.copy(holz = r.holz + 1)
@@ -266,7 +266,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Straßen, die keine Schlaglöcher kriegen",
                             "Zahnpasta, von der ich WIRKLICH keine Parodontose kriege"
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(ton = r.ton + 1)
                             2 -> r.copy(gewoben = r.gewoben + 1)
@@ -283,7 +283,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                             "Wie Schneewittchen und Lenin: in einem Glassarg!",
                             "Ich hätte gern eine Pyramide."
                     ),
-                    { option: Int, r: Result ->
+                    { option, r ->
                         when (option) {
                             1 -> r.copy(holz = r.holz + 1)
                             2 -> r.copy(ton = r.ton + 1)
