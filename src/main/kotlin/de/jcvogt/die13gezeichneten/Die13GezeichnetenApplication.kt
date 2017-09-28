@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.context.annotation.SessionScope
 import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.servlet.view.RedirectView
 import kotlin.reflect.full.memberProperties
 
 data class Result(
@@ -42,12 +43,14 @@ class ResultHolder {
     var step: Int = 0
 
     fun evaluate(answer: Int, steps: Array<Step>): Boolean {
-        if(step < steps.size) {
+        if(!isDone(steps)) {
             result = steps[step].evaluator(answer, result)
             step += 1
         }
-        return step >= steps.size
+        return isDone(steps)
     }
+
+    fun isDone(steps: Array<Step>) = step >= steps.size
 
     fun assess(): String {
         return mapOf(
@@ -309,7 +312,9 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
             if(answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
 
     @GetMapping("/result")
-    fun result() = ModelAndView("result", mapOf("result" to resultHolder.assess()))
+    fun result() =
+            if(resultHolder.isDone(steps)) ModelAndView("result", mapOf("result" to resultHolder.assess()))
+            else RedirectView("/gildenrat")
 
     @PostMapping("/reset")
     fun reset(): String {
