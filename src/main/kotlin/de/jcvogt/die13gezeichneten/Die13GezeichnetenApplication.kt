@@ -37,28 +37,31 @@ class Step(val question: String, val options: Array<String>, val evaluator: (Int
 @Component
 @SessionScope
 class ResultHolder {
-    var result = Result()
-    var step = 0
-    val map by lazy {
-      mapOf(
-          "wort" to "…Wortzeichen! Schau mal bei der Gilde der Dichter, Sänger, Schriftsteller, Buchdrucker vorbei!",
-          "verborgen" to "…Verborgene Zeichen! Jemandem wie dir steht in Sygna keine Gilde offen! Pass auf deinen Lebenswandel auf, sonst landest du am Ende noch beim Verborgenen Hof!",
-          "naehr" to "…Nährende Zeichen! Die Bäcker und Müller nehmen dich sicher gern auf! Oder aber die Heiler. Aber wir müssen dich vorwarnen: Letztere sind etwas umstritten!",
-          "alchim" to "…Alchimistische Zeichen! Die Gilde der Alchimisten und Sterndeuter oder die Gilde der Heiler nehmen dich sicher gerne auf!",
-          "blut" to "…Blutzeichen! Ein Schwertkämpfer! Die Goldene Gilde wäre etwas für dich. Oder du gehst zur Konkurrenz, den Stählernen Fechter, wenn dir ein Sitz im Rat nicht so wichtig ist.",
-          "stein" to "…Steinerne Zeichen! Die Zunft der Steinmetze erwartet dich!",
-          "gold" to "…Goldene Zeichen! Hier steht ein baldiger Schmuckschmiedegeselle vor uns!",
-          "glas" to "…Gläserne Zeichen! Die Zunft der Glasbläser sucht immer gute Leute!",
-          "holz" to "…Hölzerne Zeichen! Bewirb dich bei der erwürdigen Zunft der Schreiner und Zimmerleute!",
-          "rausch" to "…Rausch! Die Gilde der Kurtisanen ist Vergangenheit, aber bei den Braumeistern kannst du es auch heute noch zu etwas bringen!",
-          "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
-          "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
-          "ton" to "…Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
-      )
+    companion object {
+        val resultMapping by lazy {
+            mapOf(
+                    "wort" to "…Wortzeichen! Schau mal bei der Gilde der Dichter, Sänger, Schriftsteller, Buchdrucker vorbei!",
+                    "verborgen" to "…Verborgene Zeichen! Jemandem wie dir steht in Sygna keine Gilde offen! Pass auf deinen Lebenswandel auf, sonst landest du am Ende noch beim Verborgenen Hof!",
+                    "naehr" to "…Nährende Zeichen! Die Bäcker und Müller nehmen dich sicher gern auf! Oder aber die Heiler. Aber wir müssen dich vorwarnen: Letztere sind etwas umstritten!",
+                    "alchim" to "…Alchimistische Zeichen! Die Gilde der Alchimisten und Sterndeuter oder die Gilde der Heiler nehmen dich sicher gerne auf!",
+                    "blut" to "…Blutzeichen! Ein Schwertkämpfer! Die Goldene Gilde wäre etwas für dich. Oder du gehst zur Konkurrenz, den Stählernen Fechter, wenn dir ein Sitz im Rat nicht so wichtig ist.",
+                    "stein" to "…Steinerne Zeichen! Die Zunft der Steinmetze erwartet dich!",
+                    "gold" to "…Goldene Zeichen! Hier steht ein baldiger Schmuckschmiedegeselle vor uns!",
+                    "glas" to "…Gläserne Zeichen! Die Zunft der Glasbläser sucht immer gute Leute!",
+                    "holz" to "…Hölzerne Zeichen! Bewirb dich bei der erwürdigen Zunft der Schreiner und Zimmerleute!",
+                    "rausch" to "…Rausch! Die Gilde der Kurtisanen ist Vergangenheit, aber bei den Braumeistern kannst du es auch heute noch zu etwas bringen!",
+                    "eisen" to "…Eiserne Zeichen! Die Gilde der Klingenschmiede zum einen und die Gilde der Harnischermacher und Glockengießer zum anderen werden sich um dich reißen!",
+                    "gewoben" to "…Gewobene Zeichen! Strebe danache, die Meisterschaft in deiner Kunst in der Weberzunft zu erlangen!",
+                    "ton" to "…Irdene Zeichne! In der Zunft der Töpfer wirst du machtvolle Zeichen in den Ton brennen können!"
+            )
+        }
     }
 
+    var result = Result()
+    var step = 0
+
     fun evaluate(answer: Int, steps: Array<Step>): Boolean {
-        if(!isDone(steps)) {
+        if (!isDone(steps)) {
             result = steps[step].evaluator(answer, result)
             step += 1
         }
@@ -67,7 +70,7 @@ class ResultHolder {
 
     fun isDone(steps: Array<Step>) = step >= steps.size
 
-    fun assess() = map.get(result.sign())!!
+    fun assess() = ResultHolder.Companion.resultMapping.get(result.sign())!!
 
     fun reset() {
         result = Result()
