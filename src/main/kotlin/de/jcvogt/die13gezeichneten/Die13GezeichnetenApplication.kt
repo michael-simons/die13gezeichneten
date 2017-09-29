@@ -302,9 +302,11 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
     fun index() = resultHolder.reset().let { "index" }
 
     @GetMapping("/gildenrat")
-    fun question() = ModelAndView("question", mapOf(
-            "questionNumber" to resultHolder.step + 1,
-            "step" to steps[resultHolder.step]))
+    fun question() = resultHolder
+            .apply { if (isDone(steps)) reset() }
+            .let { ModelAndView("question", mapOf(
+            "questionNumber" to it.step + 1,
+            "step" to steps[it.step])) }
 
     @PostMapping("/answer")
     fun answer(@RequestParam(required = false) answer: Int?) =
