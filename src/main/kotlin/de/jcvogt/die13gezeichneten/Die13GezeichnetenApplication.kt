@@ -28,8 +28,8 @@ data class Result(
         val ton: Int = 0
 ) {
     fun sign() = Result::class.memberProperties
-            .associate { it -> Pair(it.name, it.get(this) as Int) }
-            .maxBy { it -> it.value }?.key
+            .associate { Pair(it.name, it.get(this) as Int) }
+            .maxBy { it.value }?.key
 }
 
 class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result)
