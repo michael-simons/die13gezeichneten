@@ -76,7 +76,6 @@ class ResultHolder {
         result = Result()
         step = 0
     }
-
 }
 
 @SpringBootApplication
