@@ -70,7 +70,7 @@ class ResultHolder {
 
     fun isDone(steps: Array<Step>) = step >= steps.size
 
-    fun assess() = ResultHolder.Companion.resultMapping.get(result.sign())!!
+    fun assess() = ResultHolder.Companion.resultMapping[result.sign()]!!
 
     fun reset() {
         result = Result()
