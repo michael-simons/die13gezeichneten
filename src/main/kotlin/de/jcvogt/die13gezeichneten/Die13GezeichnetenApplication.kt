@@ -70,7 +70,10 @@ class ResultHolder {
 
     fun isDone(steps: Array<Step>) = step >= steps.size
 
-    fun assess() = ResultHolder.Companion.resultMapping[result.sign()]!!
+    fun assess(): Pair<String, String> {
+        val sign = result.sign()!!
+        return Pair(sign, ResultHolder.Companion.resultMapping[sign]!!)
+    }
 
     fun reset() {
         result = Result()

@@ -18,22 +18,25 @@
             </div>
             <h3>Der Gildenrat hat deine Antworten gehört und empfiehlt dir:</h3>
             <div class="row">
-                <div class="col-xs-3">
-                    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">
-                        <img src="/CoverFinal.jpg" th:src="@{/CoverFinal.jpg}" class="img-thumbnail img-responsive" />
-                    </a>
-                </div>
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     <p>
-                    <mark th:text="${result}">Lern was anständiges.</mark>
-                    <a href="index.html" th:href="@{/}">Zurück zum Anfang</a>.</p>
+                        <mark th:text="${result.second}">Lern was anständiges.</mark>
+                    </p>
+                    <p>
+                        <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">
+                            <img src="/CoverFinal.jpg" th:src="@{/{sign}.png(sign=${result.first})}" class="img-rounded img-responsive" />
+                        </a>
+                    </p>
+                    <p>
+                        <a href="index.html" th:href="@{/}">Zurück zum Anfang</a>
+                    </p>
                 </div>
             </div>
             <hr />
             <div class="row">
                 <div class="col-xs-12">
-                    <p>Mehr über die 13 Gezeichneten findest du im 
-                    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">Roman</a>, auf dieser 
+                    <p>Mehr über die 13 Gezeichneten findest du im
+                    <a href="https://www.luebbe.de/bastei-luebbe/buecher/fantasy-buecher/die-dreizehn-gezeichneten/id_6121562">Roman</a>, auf dieser
                     <a href="https://sites.google.com/view/scherbenland/die-13-gezeichneten">Webseite zur Welt</a> und auf der
                     <a href="http://www.jcvogt.de">Homepage der Vögte</a>.</p>
                 </div>
