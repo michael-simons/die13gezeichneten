@@ -39,7 +39,10 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-reflect"
 	compile "com.fasterxml.jackson.module:jackson-module-kotlin"
 
-	compile "org.springframework.boot:spring-boot-starter-web"
+	compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+	}
+	compile "org.springframework.boot:spring-boot-starter-undertow"
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
