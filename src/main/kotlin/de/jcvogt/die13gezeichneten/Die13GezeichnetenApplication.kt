@@ -1,7 +1,7 @@
 package de.jcvogt.die13gezeichneten
 
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -326,5 +326,5 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(Die13GezeichnetenApplication::class.java, *args)
+    runApplication<Die13GezeichnetenApplication>(*args)
 }

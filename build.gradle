@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		kotlinVersion = "1.2.10"
-		springBootVersion = "1.5.9.RELEASE"
+		kotlinVersion = "1.2.21"
+		springBootVersion = "2.0.0.RELEASE"
 	}
 	repositories {
 		mavenCentral()
@@ -17,6 +17,7 @@ apply plugin: "kotlin"
 apply plugin: "kotlin-spring"
 apply plugin: "eclipse"
 apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
 
 group = "de.jcvogt"
 version = "0.0.1-SNAPSHOT"
@@ -34,15 +35,16 @@ repositories {
 }
 
 dependencies {
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}"
-	compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+	compile "org.jetbrains.kotlin:kotlin-reflect"
+	compile "com.fasterxml.jackson.module:jackson-module-kotlin"
 
 	compile "org.springframework.boot:spring-boot-starter-web"
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
 	compile "org.webjars:bootstrap:3.3.7"
-	compile "org.webjars:webjars-locator"
+	compile "org.webjars:webjars-locator-core"
 
 	runtime "org.springframework.boot:spring-boot-devtools"
 
