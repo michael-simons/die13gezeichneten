@@ -1,5 +1,6 @@
 package de.jcvogt.die13gezeichneten
 
+import java.io.Serializable
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.stereotype.Component
@@ -26,7 +27,7 @@ data class Result(
         val eisen: Int = 0,
         val gewoben: Int = 0,
         val ton: Int = 0
-) {
+): Serializable {
     fun sign() = Result::class.memberProperties
             .associate { Pair(it.name, it.get(this) as Int) }
             .maxBy { it.value }?.key
@@ -36,7 +37,7 @@ class Step(val question: String, val options: Array<String>, val evaluator: (Int
 
 @Component
 @SessionScope
-class ResultHolder {
+class ResultHolder: Serializable {
     companion object {
         val resultMapping by lazy {
             mapOf(
@@ -317,7 +318,7 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
             if (answer != null && resultHolder.evaluate(answer, steps)) "redirect:/result" else "redirect:/gildenrat"
 
     @GetMapping("/result")
-    fun result() =
+    fun result(): Any =
             if (resultHolder.isDone(steps)) ModelAndView("result", mapOf("result" to resultHolder.assess()))
             else RedirectView("/gildenrat")
 
