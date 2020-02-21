@@ -39,8 +39,8 @@
                         <mark th:text="${result.second}">Lern was anständiges.</mark><br /><br /><a class="twitter-share-button" href="#" th:href="@{https://twitter.com/intent/tweet(text=${'Mein Zeichen: &quot;' + result.second + '&quot;'},url='https://die13gezeichneten.herokuapp.com')}">Tweet</a>
                     </p>
                     <p>
-                        <a href="https://www.amazon.de/dreizehn-Gezeichneten-Judith-Christian-Vogt/dp/3404208927/">
-                            <img src="/CoverFinal.jpg" th:src="@{/{sign}.png(sign=${result.first})}" class="img-rounded img-responsive" />
+                        <a href="http://www.jcvogt.de">
+                            <img src="../static/cover.jpg" th:src="@{/{sign}.png(sign=${result.first})}" class="img-rounded img-responsive" />
                         </a>
                     </p>
                     <p>
@@ -51,7 +51,10 @@
             <hr />
             <div class="row">
                 <div class="col-xs-12">
-                    <p>Du kannst das den Roman <em>Die dreizehn Gezeichneten</em> bei <a href="https://www.amazon.de/dreizehn-Gezeichneten-Judith-Christian-Vogt/dp/3404208927/">Amazon</a> oder im lokalen Buchhandel erwerben.</p>
+                    <p>
+                        Du kannst die aus den Romanen <em>Die 13 Gezeichneten</em>, <em>Die verkehrte Stadt</em> und <em>Der krumme Mann der Tiefe</em> bestehende Trilogie der 13 Gezeichneten
+                        bei <a href="https://www.amazon.de/dreizehn-Gezeichneten-Judith-Christian-Vogt/dp/3404208927/">Amazon</a> oder im lokalen Buchhandel erwerben.
+                    </p>
                     <p>Mehr über die 13 Gezeichneten findest du im auf der
                     <a href="https://sites.google.com/view/scherbenland/die-13-gezeichneten">Webseite zur Welt</a> und auf der
                     <a href="http://www.jcvogt.de">Homepage der Vögte</a>.</p>

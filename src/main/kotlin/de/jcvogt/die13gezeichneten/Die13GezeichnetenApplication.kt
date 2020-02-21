@@ -6,6 +6,7 @@ import org.springframework.boot.runApplication
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.context.annotation.SessionScope
@@ -32,6 +33,8 @@ data class Result(
             .associate { Pair(it.name, it.get(this) as Int) }
             .maxBy { it.value }?.key
 }
+
+data class Link(val href: String, val image: String)
 
 class Step(val question: String, val options: Array<String>, val evaluator: (Int, Result) -> Result)
 
@@ -85,6 +88,12 @@ class ResultHolder: Serializable {
 @SpringBootApplication
 @Controller
 class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
+    val links = arrayOf(
+        Link("https://www.amazon.de/dreizehn-Gezeichneten-Judith-Christian-Vogt/dp/3404208927/", "/cover.jpg"), 
+        Link("https://www.amazon.de/Die-dreizehn-Gezeichneten-Verkehrte-Geheimnis/dp/3404209346/", "/cover-die-verkehrte-stadt.jpg"), 
+        Link("https://www.amazon.de/Die-dreizehn-Gezeichneten-Geheimnis-Zeichen-ebook/dp/B07RQ73Q73/", "/cover-der-krumme-mann.jpg")
+    )
+
     val steps = arrayOf(
             Step("Womit arbeitest du lieber?",
                     arrayOf(
@@ -300,6 +309,9 @@ class Die13GezeichnetenApplication(val resultHolder: ResultHolder) {
                     }
             )
     )
+    
+    @ModelAttribute(name = "link")
+    fun link() = links.random()
 
     @GetMapping("/")
     fun index() = resultHolder.reset().let { "index" }

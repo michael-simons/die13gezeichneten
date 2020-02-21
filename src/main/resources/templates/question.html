@@ -21,8 +21,8 @@
             <span th:text="${step.question}">Wie geht es Dir heute?</span></h3>
             <div class="row">
                 <div class="col-xs-3">
-                    <a href="https://www.amazon.de/dreizehn-Gezeichneten-Judith-Christian-Vogt/dp/3404208927/">
-                        <img src="/CoverFinal.jpg" th:src="@{/CoverFinal.jpg}" class="img-thumbnail img-responsive" />
+                    <a href="http://www.jcvogt.de" th:href="@{${link.href}}">
+                        <img src="../static/cover.jpg" th:src="@{${link.image}}" class="img-thumbnail img-responsive" />
                     </a>
                 </div>
                 <div class="col-xs-9">
