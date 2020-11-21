@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Die Dreizehn Gezeichneten</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" th:fragment="links (offset)" th:remove="tag">
+                <div class="col-xs-5" th:classappend="'col-xs-offset-' + ${offset}">
+                    <p>
+                        Das Geheimnis der Zeichen-Bundle:<br />
+                        <a href="https://shop.ach.je/produkt/das-geheimnis-der-zeichen-bundle/">Alle Bücher im Bundle in der Ach je'sche Verlagsbuchhandlung.</a>
+                    </p>
+                </div>
+                <div class="col-xs-4">
+                    <p th:fragment="michael">
+                        Webseite von <a href="https://twitter.com/rotnroll666">Michael Simons</a> unter Apache 2 Lizenz:<br />
+                        <a href="https://github.com/michael-simons/die13gezeichneten">die13gezeichneten</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
