@@ -31,7 +31,7 @@ data class Result(
 ): Serializable {
     fun sign() = Result::class.memberProperties
             .associate { Pair(it.name, it.get(this) as Int) }
-            .maxBy { it.value }?.key
+            .maxByOrNull { it.value }?.key
 }
 
 data class Link(val href: String, val image: String)
